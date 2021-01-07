@@ -1,0 +1,512 @@
+@\import "https://malscraper.azurewebsites.net/covers/auto/presets/more";
+/*@\import "https://dl.dropboxusercontent.com/s/m1z4trsw0vuet03/more.css"; use if malscraper is down*/
+
+/******************************************************
+ * MyAnimeList classic stylesheet by Jordan Oberstein *
+ * Last Revised 10/7/20                               *
+ ******************************************************/
+
+/* GENERAL */
+
+body {
+    background-attachment: fixed;
+    background-image: url(https://i.imgur.com/A5r4dcR.jpg); /* Credit for image goes to original artist */
+    background-repeat: no-repeat no-repeat;
+    background-size: cover;
+    font-family: calibri;
+}
+* {
+    transition: all 0.25s ease-in-out 0s;
+}
+*:focus { /* Chrome agent renders blue outline on :focus */
+    outline: none;
+}
+*::selection {
+    background-color: rgba(158, 200, 114, 0.99); /* Chrome agent renders semi-transparent ::selection; alpha bypass for #66DD99 */
+    color: #FFFFFF;
+    text-shadow: rgba(0, 0, 0, 0.2) 0 1px 1px;
+}
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+    text-shadow: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* LIST DIMENSIONS */
+
+#list_surround {
+    font-size: 100%;
+    left: calc(6% + 150px);
+    line-height: 1;
+    padding-bottom: 10px;
+    position: absolute;
+    top: -37px; /* Pixel rounding errors !!! */
+    width: 80%;
+}
+#list_surround small a:last-of-type { /* Hides "more" link (overriden by import) */
+    display: none;
+}
+
+/* HEADERS */
+
+[class^="header_"] * {
+    text-align: center;
+    vertical-align: bottom;
+}
+.header_title {
+    color: #FFFFFF;
+    display: inline-block;
+    line-height: 18px;
+    text-shadow: rgba(0, 0, 0, 0.2) 0 1px 1px;
+}
+.header_cw,
+.header_completed,
+.header_onhold,
+.header_dropped,
+.header_ptw {
+    background-color: rgba(156, 163, 196, 0.8);
+    border-radius: 24px 24px 0 0;
+    font-family: georgia;
+    font-size: 72px;
+    height: 60px;
+    margin: 0; /* Fixes horizontal pixel roundin error in headers */
+    padding-bottom: 12px
+}
+
+/* TABLE INFO */
+
+.table_header {
+    background-color: rgba(156, 163, 196, 0.8);
+    color: #FFFFFF;
+    padding: 4px;
+}
+.td1,
+.td2 {
+    background-color: rgba(0, 0, 0, 0.55);
+    color: #FFFFFF;
+    height: 64px;
+    padding: 4px;
+    vertical-align: top;
+}
+tr:hover [class^="td"] {
+    background-color: rgba(156, 163, 196, 0.8);
+    transition: 0.1s linear;
+}
+.table_header:nth-of-type(2),
+.td1:nth-of-type(2),
+.td2:nth-of-type(2) {
+    padding-left: 36px;
+}
+.td1:nth-of-type(5) span, /* Removes bold weight for episode count when updating */
+.td2:nth-of-type(5) span {
+    font-weight: normal !important;
+}
+.animetitle {
+    font-weight: bold;
+}
+.animetitle+small {
+    color: #9EC872; /* Matches ::selection */
+    font-weight: bold;
+}
+input[type="button"], /* Save, cancel, fancybox yes, fancybox no, score */
+input[value="Go"] { /* Score and episode "Go" button */
+    background-color: #FFFFFF;
+    border: 0;
+    border-radius: 6px;
+    font-family: calibri;
+    padding: 0 6px;
+}
+input[type="button"]:hover,
+input[value="Go"]:hover {
+    background-color: #FFFFFF;
+    color: #992222;
+}
+input[type="text"] { /* Score and episode box */
+    border: 0;
+    border-radius: 6px;
+    font-family: calibri;
+    margin: 3px 0 4px 0; /* Parallels save and cancel buttons */
+    padding: 0;
+    text-align: center;
+}
+.category_totals {
+    background-color: rgba(156, 163, 196, 0.8);
+    border-radius: 0 0 24px 24px;
+    color: #FFFFFF;
+    padding: 4px;
+    text-align: center;
+}
+
+/* FAVORITE ANIME */
+
+.animetitle[href="/anime/339/Serial_Experiments_Lain"]:before,
+.animetitle[href="/anime/1575/Code_Geass__Hangyaku_no_Lelouch"]:before,
+.animetitle[href="/anime/20159/Pokemon__The_Origin"]:before,
+.animetitle[href="/anime/34599/Made_in_Abyss"]:before {
+    color: #EE1111;
+    content: "\272D";
+    display: inline-block;
+    transition: width 0.25s ease-in-out 0s;
+    width: 14px; /* Width of content */
+}
+.animetitle[href="/anime/339/Serial_Experiments_Lain"]:hover:before,
+.animetitle[href="/anime/1575/Code_Geass__Hangyaku_no_Lelouch"]:hover:before,
+.animetitle[href="/anime/20159/Pokemon__The_Origin"]:hover:before,
+.animetitle[href="/anime/34599/Made_in_Abyss"]:hover:before {
+    content: "\272C (Favorite)";
+    text-decoration: underline;
+    text-decoration-color: white;
+    width: 76px; /* Width of content */
+}
+
+/* TAG REVIEWS */
+
+.table_header:nth-of-type(6),
+.td1:nth-of-type(6),
+.td2:nth-of-type(6) { /* Tag cell */
+    font-size: 0;
+    width: 1px;
+}
+.td1:nth-of-type(6) a,
+.td2:nth-of-type(6) a { /* Edit button */
+    font-size: 14px;
+    left: 9px;
+    margin-top: 18px;
+    position: absolute;
+    z-index: 7; /* Press through .hide */
+}
+span[id*="tagRow"] {
+    display: block !important;
+    font-size: 12px;
+    height: 50px;
+    left: 70px;
+    line-height: 12px;
+    margin-top: 17px;
+    overflow-y: auto;
+    padding: 0 4px;
+    position: absolute;
+    text-align: justify;
+    width: 50%;
+    z-index: 1;
+}
+span[id*="tagLinks"] { /* Prevents tag links */
+    display: none !important;
+}
+.inputtext {
+    border: 0;
+    border-radius: 6px;
+    font-family: calibri;
+    font-size: 12px;
+    height: 50px;
+    left: 74px;
+    line-height: 12px;
+    margin-top: 13px;
+    padding: 0 1px 0 1px; /* Chrome agent renders padding: 2px; */
+    position: absolute;
+    width: 50%;
+    z-index: 2; /* Overlays span[id*="tagRow"] */
+}
+input[type="button"][value="Save"] {
+    left: calc(50% + 80px);
+    margin-top: 16px;
+    position: absolute;
+    z-index: 2;
+}
+input[type="button"][value="Cancel"] {
+    left: calc(50% + 80px);
+    margin-top: 36px;
+    position: absolute;
+    z-index: 2;
+}
+
+/* COMPLETED BOX */
+
+#fancybox-outer {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    border-radius: 12px;
+}
+#fancybox-inner {
+    border-radius: 4px;
+}
+#fancybox-outer .fancy-bg {
+    display: none;
+}
+
+/* COVER PICS */
+
+.hide {
+    background-color: rgba(0, 0, 0, 0.55); /* Image safeguard */
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+    background-size: cover;
+    border: 1px solid #FFFFFF;
+    border-radius: 6px 0 6px 6px;
+    display: inline-block !important;
+    height: 55px;
+    margin-left: 34px;
+    margin-top: -64px;
+    position: absolute;
+    width: 35px;
+    z-index: 5;
+}
+.hide:hover {
+    background-color: transparent;
+    background-repeat: no-repeat no-repeat;
+    background-size: cover;
+    border-radius: 24px 0 24px 24px;
+    box-shadow: 0 0 6px 6px rgba(0, 0, 0, 0.55);
+    margin-left: -200px;
+    padding-right: 150px;
+    padding-top: 212px;
+    position: absolute;
+}
+.hide:hover:after {
+    content: " ";
+    height: 75px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 260px;
+}
+
+/* SIDEBAR MENU */
+
+.status_selected,
+.status_not_selected {
+    left: 6%;
+    position: fixed;
+    text-align: left;
+}
+.status_selected:nth-of-type(1),
+.status_not_selected:nth-of-type(1) {
+    top: 95px;
+    width: 135px; /* HTML Attribute width: 165px is too large */
+}
+.status_selected:nth-of-type(2),
+.status_not_selected:nth-of-type(2) {
+    top: 120px;
+}
+.status_selected:nth-of-type(3),
+.status_not_selected:nth-of-type(3) {
+    top: 145px;
+}
+.status_selected:nth-of-type(4),
+.status_not_selected:nth-of-type(4) {
+    top: 170px;
+}
+.status_selected:nth-of-type(5),
+.status_not_selected:nth-of-type(5) {
+    top: 195px;
+}
+.status_selected:last-of-type,
+.status_not_selected:last-of-type {
+    top: 220px;
+}
+.status_selected a,
+.status_not_selected a {
+    background-color: rgba(0, 0, 0, 0.55);
+    display: block;
+    height: 25px;
+    line-height: 25px;
+    padding-left: 10px;
+    width: 135px;
+}
+.status_selected a:hover,
+.status_not_selected a:hover {
+    background-color: rgba(156, 163, 196, 0.8);
+    transition: all 0.25s ease-in-out 0s;
+}
+.status_selected a,
+.status_not_selected a:hover {
+    border-radius: 12px 0 0 12px;
+    margin-left: -20px;
+    padding-left: 30px;
+}
+.status_selected:before {
+    background-color: rgba(156, 163, 196, 0.8);
+    border-radius: 12px 4px 0 0;
+    color: #FFFFFF;
+    content: "Menu";
+    font-family: georgia;
+    font-weight: bold;
+    height: 25px;
+    left: 6%;
+    line-height: 25px;
+    position: fixed;
+    text-align: center;
+    top: 70px;
+    width: 145px;
+}
+
+/* SEARCH BOX */
+
+#searchBox {
+    background-color: rgba(0, 0, 0, 0.55);
+    border: 0;
+    border-radius: 0 0 4px 12px;
+    color: #FFFFFF;
+    display: inline-block;
+    font-family: calibri;
+    font-size: 16px !important;
+    height: 25px;
+    left: 6%;
+    padding: 0 0 0 10px;
+    position: fixed;
+    top: 245px;
+    width: 135px !important;
+}
+#searchBox:focus,
+#searchBox:hover,
+#searchBox:not([value="Search"]) {
+    background-color: rgba(156, 163, 196, 0.8);
+    border-radius: 12px 0 4px 12px;
+    margin-left: -20px;
+    padding-left: 30px;
+    text-decoration: underline;
+    transition: all 0.25s ease-in-out 0s;
+}
+
+/* TOP BAR */
+
+#mal_control_strip td {
+    height: 0 !important; /* Fixes displaced header when logged out */
+}
+#mal_cs_listinfo,
+#mal_cs_links,
+#mal_cs_otherlinks {
+    background: none no-repeat scroll 100% 0 transparent;
+    border: 0 !important; /* Remove default border-right */
+    height: 0;
+    overflow: hidden;
+    padding: 32px 0 0 !important;
+    position: fixed;
+    text-align: center;
+    width: 125px !important;
+}
+#mal_cs_listinfo:hover,
+#mal_cs_links:hover,
+#mal_cs_otherlinks:hover {
+    height: 220px !important;
+    transition: all 0.25s ease-in-out 0s;
+}
+#mal_cs_listinfo div,
+#mal_cs_links div,
+#mal_cs_otherlinks div {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-color: #737373;
+    border-radius: 12px 0 0 0;
+    border-style: solid solid none solid;
+    border-width: 2px;
+    font-size: 0 !important; /* Shared anime and affinity disapear */
+    line-height: 0;
+    margin: 0 !important;
+    padding: 8px 0 0;
+}
+#mal_cs_listinfo div:nth-of-type(2),
+#mal_cs_links div:nth-of-type(2),
+#mal_cs_otherlinks div:nth-of-type(2) {
+    border-radius: 0 0 12px 12px;
+    border-style: none solid solid solid;
+    padding: 4px 0 8px;
+}
+#mal_cs_listinfo a,
+#mal_cs_links a,
+#mal_cs_otherlinks a,
+#mal_cs_otherlinks strong {
+    background-color: rgba(0, 0, 0, 0.55) !important;
+    border-radius: 6px;
+    color: #FFFFFF;
+    display: block;
+    font: 14px calibri !important;
+    line-height: 18px;
+    margin: 4px 12px 0;
+    padding: 3px 0;
+}
+#mal_cs_listinfo a:first-of-type,
+#mal_cs_links a:first-of-type,
+#mal_cs_otherlinks a:first-of-type,
+#mal_cs_otherlinks strong {
+    margin-top: 0;
+}
+#mal_cs_listinfo a:hover,
+#mal_cs_links a:hover,
+#mal_cs_otherlinks a:hover {
+    background-color: rgba(156, 163, 196, 0.8) !important;
+}
+#mal_cs_listinfo strong a strong {
+    font-weight: normal;
+}
+#mal_cs_otherlinks strong a { /* Logged out */
+    background-color: transparent !important;
+    display: inline;
+    font-size: 13px !important;
+    margin: 0;
+}
+#mal_cs_otherlinks strong a:hover { /* Logged out */
+    background-color: transparent !important;
+    color: #992222;
+}
+#mal_cs_listinfo {
+    background-image: url("https://i.imgur.com/UXZxrWI.png");
+    left: calc(6% - 54px);
+    top: 275px;
+    z-index: 3;
+}
+#mal_cs_listinfo:hover {
+    background-image: url("https://i.imgur.com/VcVVnod.png");
+}
+#mal_cs_links {
+    background-image: url("https://i.imgur.com/LpXWTzt.png");
+    left: calc(6% - 17px);
+    top: 275px;
+    z-index: 2;
+}
+#mal_cs_links:hover {
+    background-image: url("https://i.imgur.com/oPfKrOl.png");
+}
+#mal_cs_otherlinks {
+    background-image: url("https://i.imgur.com/ogmX9qC.png");
+    left: calc(6% + 20px);
+    top: 275px;
+    z-index: 1;
+}
+#mal_cs_otherlinks:hover {
+    background-image: url("https://i.imgur.com/EEGHkbF.png");
+}
+#mal_control_strip img {
+    display: none;
+}
+
+/* BOTTOM BAR */
+
+#grand_totals {
+    background-color: rgba(156, 163, 196, 0.8);
+    border-radius: 24px;
+    color: #FFFFFF;
+    line-height: 20px;
+    margin: 0 50px;
+    min-height: 20px;
+    padding: 8px;
+    text-align: center;
+}
+#copyright {
+    background-color: rgba(156, 163, 196, 0.8);
+    border-radius: 24px;
+    color: #FFFFFF;
+    line-height: 12px;
+    margin: 0 150px;
+    min-height: 12px;
+    padding: 8px;
+}
+
+/* KNOWN PROBLEMS
+ * Chrome  - pixel rounding errors when zooming
+ * Firefox - NONE
+ * IE      - weird borders around cells
+ * Edge    - weird borders around cells
+ * Safari  - NONE
+ * Opera   - pixel rounding errors when zooming
+ */
